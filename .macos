@@ -1,0 +1,470 @@
+#!/usr/bin/env bash
+
+# Based on https://github.com/mathiasbynens/dotfiles
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+###############################################################################
+# General UI/UX                                                               #
+###############################################################################
+
+# Set standby delay to 24 hours (default is 1 hour)
+sudo pmset -a standbydelay 86400
+
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
+
+# Set highlight color to graphite
+defaults write NSGlobalDomain AppleHighlightColor -string "0.847059 0.847059 0.862745"
+
+# Show scrollbars when scrolling
+defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
+
+# Automatically quit printer app once the print jobs complete
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+
+# Disable Resume system-wide
+defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool true
+
+# Disable automatic capitalization
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+
+# Enable smart dashes
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool true
+
+# Disable automatic period substitution
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+# Enable smart quotes
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool true
+
+# Enable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
+defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool true
+
+
+defaults write NSGlobalDomain AppleActionOnDoubleClick -string "Minimize"
+defaults write NSGlobalDomain AppleAntiAliasingThreshold -int 4
+defaults write NSGlobalDomain AppleAquaColorVariant -int 6
+defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
+defaults write NSGlobalDomain AppleEnableMouseSwipeNavigateWithScrolls -bool true
+defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool true
+defaults write NSGlobalDomain AppleScrollAnimationEnabled -bool true
+defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool true
+defaults write NSGlobalDomain AppleSpacesSwitchOnActivate -bool true
+defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
+defaults write NSGlobalDomain AppleWindowTabbingMode -string "always"
+defaults write NSGlobalDomain NSNavPanelFileLastListModeForOpenModeKey -int 1
+defaults write NSGlobalDomain NSNavPanelFileLastListModeForSaveModeKey -int 1
+defaults write NSGlobalDomain NSNavPanelFileListModeForOpenMode2 -int 1
+defaults write NSGlobalDomain NSNavPanelFileListModeForSaveMode2 -int 1
+defaults write NSGlobalDomain NSPersonNameDefaultDisplayNameOrder -int 0
+defaults write NSGlobalDomain NSPersonNameDefaultShortNameEnabled -int 0
+defaults write NSGlobalDomain NSPersonNameDefaultShortNameFormat -int 0
+defaults write NSGlobalDomain NSPersonNameDefaultShouldPreferNicknamesPreference -int 0
+defaults write NSGlobalDomain com.apple.mouse.scaling -float 0.6875
+defaults write NSGlobalDomain com.apple.scrollwheel.scaling -float 0.3125
+defaults write NSGlobalDomain com.apple.sound.beep.feedback -int 1
+defaults write NSGlobalDomain com.apple.sound.beep.flash -int 0
+defaults write NSGlobalDomain com.apple.springing.delay -float 0.5
+defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+defaults write NSGlobalDomain userMenuExtraStyle -int 2
+
+
+###############################################################################
+# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+###############################################################################
+
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
+
+
+# Set language and text formats
+defaults write NSGlobalDomain AppleLocale -string "en_US"
+defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+defaults write NSGlobalDomain AppleMetricUnits -bool true
+
+
+
+defaults write com.apple.AppleMultitouchTrackpad ActuateDetents -int 1
+defaults write com.apple.AppleMultitouchTrackpad Clicking -int 0
+defaults write com.apple.AppleMultitouchTrackpad DragLock -int 0
+defaults write com.apple.AppleMultitouchTrackpad Dragging -int 0
+defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 1
+defaults write com.apple.AppleMultitouchTrackpad ForceSuppressed -bool false
+defaults write com.apple.AppleMultitouchTrackpad HIDScrollZoomModifierMask -int 524288
+defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 0
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFiveFingerPinchGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerPinchGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadHandResting -bool true
+defaults write com.apple.AppleMultitouchTrackpad TrackpadHorizScroll -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadMomentumScroll -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadScroll -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDoubleTapGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture -int 2
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingersRightClick -bool false
+defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 3
+defaults write com.apple.AppleMultitouchTrackpad USBMouseStopsTrackpad -int 0
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonDivision -int 55
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode -string "OneButton"
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseHorizontalScroll -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseMomentumScroll -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseOneFingerDoubleTapGesture -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerDoubleTapGesture -int 3
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerHorizSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseVerticalScroll -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse UserPreferences -bool true
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad DragLock -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad HIDScrollZoomModifierMask -int 524288
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFiveFingerPinchGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerHorizSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerPinchGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerVertSwipeGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadHandResting -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadHorizScroll -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadMomentumScroll -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadPinch -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRotate -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadScroll -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDoubleTapGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool false
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerTapGesture -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFingerDoubleTapGesture -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 3
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad USBMouseStopsTrackpad -bool false
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad UserPreferences -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad migrationDone -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad version -int 5
+
+defaults write com.apple.driver.AppleHIDMouse Button1 -int 1
+defaults write com.apple.driver.AppleHIDMouse Button2 -int 2
+defaults write com.apple.driver.AppleHIDMouse Button3 -int 3
+defaults write com.apple.driver.AppleHIDMouse Button4 -int 4
+defaults write com.apple.driver.AppleHIDMouse Button4Click -int 0
+defaults write com.apple.driver.AppleHIDMouse Button4Force -int 0
+defaults write com.apple.driver.AppleHIDMouse ButtonDominance -int 1
+defaults write com.apple.driver.AppleHIDMouse ScrollH -int 1
+defaults write com.apple.driver.AppleHIDMouse ScrollS -int 4
+defaults write com.apple.driver.AppleHIDMouse ScrollSSize -int 30
+defaults write com.apple.driver.AppleHIDMouse ScrollV -int 1
+
+###############################################################################
+# Safari                                                                      #
+###############################################################################
+
+# Press Tab to highlight each item on a web page
+defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
+
+# Show the full URL in the address bar
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+
+# Prevent Safari from opening ‘safe’ files automatically after downloading
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
+# Hide Safari’s sidebar in Top Sites
+defaults write com.apple.Safari ShowSidebarInTopSites -bool false
+
+# Make Safari’s search banners default to Contains instead of Starts With
+defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
+
+# Enable the Develop menu and the Web Inspector in Safari
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+
+# Disable AutoFill
+defaults write com.apple.Safari AutoFillFromAddressBook -bool false
+defaults write com.apple.Safari AutoFillPasswords -bool false
+defaults write com.apple.Safari AutoFillCreditCardData -bool false
+defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
+
+# Enable “Do Not Track”
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+
+# Update extensions automatically
+defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
+
+defaults write com.apple.Safari AlwaysShowFavoritesBarInFullScreen -bool false
+defaults write com.apple.Safari AlwaysShowTabBar -bool true
+defaults write com.apple.Safari AlwaysShowTabBarInFullScreen -bool false
+defaults write com.apple.Safari AutoShowToolbarInFullScreen -bool false
+defaults write com.apple.Safari BlockStoragePolicy -int 2
+defaults write com.apple.Safari CanPromptForPushNotifications -bool false
+defaults write com.apple.Safari Command1Through9SwitchesTabs -bool false
+defaults write com.apple.Safari DownloadsClearingPolicy -int 2
+defaults write com.apple.Safari DownloadsPath -string "~/Downloads"
+defaults write com.apple.Safari ShowOverlayStatusBar -bool false
+defaults write com.apple.Safari ShowStatusBar -bool false
+defaults write com.apple.Safari ShowStatusBarInFullScreen -bool false
+defaults write com.apple.Safari StartPageViewControllerMode -int 1
+
+###############################################################################
+# Screen                                                                      #
+###############################################################################
+
+# Require password immediately after 5s of sleep or screen saver
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -float 5
+
+###############################################################################
+# TextEdit                                                                    #
+###############################################################################
+
+defaults write com.apple.TextEdit NSFixedPitchFont -string "OperatorMono-Book"
+defaults write com.apple.TextEdit NSFixedPitchFontSize -string 11
+defaults write com.apple.TextEdit RichText -int 0
+
+###############################################################################
+# Finder                                                                      #
+###############################################################################
+
+# Set Home as the default location for new Finder windows
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+
+# Settings for icons for hard drives and removable media on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+# Hide status bar
+defaults write com.apple.finder ShowStatusBar -bool false
+
+# Show sidebar
+defaults write com.apple.finder ShowSidebar -bool true
+defaults write com.apple.finder SidebarWidth -float 127
+
+# Hide tab bar
+defaults write com.apple.finder ShowTabView -bool false
+
+# Avoid creating .DS_Store files on network or USB volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# Use column view in all Finder windows by default
+defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+
+# Disable the warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
+
+# Set view settings
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:CustomViewStyleVersion 1" ~/Library/Preferences/com.apple.finder.plist
+
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy name" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:backgroundColorBlue 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:backgroundColorGreen 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:backgroundColorRed 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:backgroundType 0" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridOffsetX 0" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridOffsetY 0" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 71" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 32" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:labelOnBottom 0" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showIconPreview 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:textSize 10" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:viewOptionsVersion 1" ~/Library/Preferences/com.apple.finder.plist
+
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:ArrangeBy dnam" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:ColumnShowFolderArrow 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:ColumnShowIcons 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:ColumnWidth 205" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:FontSize 12" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:PreviewDisclosureState 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:SharedArrangeBy kipl" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:ShowIconThumbnails 1" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewOptions:ColumnViewOptions:ShowPreview 1" ~/Library/Preferences/com.apple.finder.plist
+
+###############################################################################
+# Dock                                                                        #
+###############################################################################
+
+# Set the size of Dock icons and on hover
+defaults write com.apple.dock tilesize -float 25
+defaults write com.apple.dock largesize -int 27
+defaults write com.apple.dock magnification -bool true
+
+defaults write com.apple.dock no-glass -bool false
+defaults write com.apple.dock orientation -string "bottom"
+
+# Minimize windows into their application’s icon
+defaults write com.apple.dock minimize-to-application -bool true
+
+# Show indicator lights for open applications in the Dock
+defaults write com.apple.dock show-process-indicators -bool true
+
+# Speed up Mission Control animations
+defaults write com.apple.dock expose-animation-duration -float 0.2
+
+# Don’t show Dashboard as a Space
+defaults write com.apple.dock dashboard-in-overlay -bool true
+
+# Don't hide the Dock
+defaults write com.apple.dock autohide -bool false
+
+defaults write com.apple.dock checked-for-launchpad -bool true
+defaults write com.apple.dock showLaunchpadGestureEnabled -bool false
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+
+###############################################################################
+# Mail                                                                        #
+###############################################################################
+
+# Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+
+# Display emails in threaded mode, sorted ascending
+defaults write com.apple.mail DraftsViewerAttributes -dict-add DisplayInThreadedMode -string "YES"
+defaults write com.apple.mail DraftsViewerAttributes -dict-add SortedDescending -string "NO"
+defaults write com.apple.mail DraftsViewerAttributes -dict-add SortOrder -string "received-date"
+
+###############################################################################
+# Terminal                                                                    #
+###############################################################################
+
+defaults write com.apple.terminal "Default Window Settings" -string "Pro"
+defaults write com.apple.terminal SecureKeyboardEntry -bool false
+defaults write com.apple.terminal ShowLineMarks -bool false
+defaults write com.apple.terminal "Startup Window Settings" -string "Pro"
+
+###############################################################################
+# Time Machine                                                                #
+###############################################################################
+
+# Prevent Time Machine from prompting to use new hard drives as backup volume
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
+###############################################################################
+# Bowtie                                                                      #
+###############################################################################
+
+defaults write com.13bold.Bowtie banHotkey -int "-1"
+defaults write com.13bold.Bowtie banHotkeyMod -int 0
+defaults write com.13bold.Bowtie bowletHotkey -int "-1"
+defaults write com.13bold.Bowtie bowletHotkeyMod -int 0
+defaults write com.13bold.Bowtie hideDockIcon -bool true
+defaults write com.13bold.Bowtie lockWindowPosition -int 0
+defaults write com.13bold.Bowtie loveHotkey -int "-1"
+defaults write com.13bold.Bowtie loveHotkeyMod -int 0
+defaults write com.13bold.Bowtie menuBarControls -bool false
+defaults write com.13bold.Bowtie muteHotkey -int "-1"
+defaults write com.13bold.Bowtie muteHotkeyMod -int 0
+defaults write com.13bold.Bowtie nextTrackHotkey -int "-1"
+defaults write com.13bold.Bowtie nextTrackHotkeyMod -int 0
+defaults write com.13bold.Bowtie openPrefsOnLaunch -bool false
+defaults write com.13bold.Bowtie playPauseHotkey -int "-1"
+defaults write com.13bold.Bowtie playPauseHotkeyMod -int 0
+defaults write com.13bold.Bowtie prevTrackHotkey -int "-1"
+defaults write com.13bold.Bowtie prevTrackHotkeyMod -int 0
+defaults write com.13bold.Bowtie ratingDownHotkey -int "-1"
+defaults write com.13bold.Bowtie ratingDownHotkeyMod -int 0
+defaults write com.13bold.Bowtie ratingUpHotkey -int "-1"
+defaults write com.13bold.Bowtie ratingUpHotkeyMod -int 0
+defaults write com.13bold.Bowtie selectedTheme -string "com.thguenther.test"
+defaults write com.13bold.Bowtie speakTrackHotkey -int "-1"
+defaults write com.13bold.Bowtie speakTrackHotkeyMod -int 0
+defaults write com.13bold.Bowtie useLastFMForInfo -bool false
+defaults write com.13bold.Bowtie volDownHotkey -int "-1"
+defaults write com.13bold.Bowtie volDownHotkeyMod -int 0
+defaults write com.13bold.Bowtie volUpHotkey -int "-1"
+defaults write com.13bold.Bowtie volUpHotkeyMod -int 0
+defaults write com.13bold.Bowtie windowBehavior -string "desktop"
+
+###############################################################################
+# Sublime Text                                                                #
+###############################################################################
+
+# Install Sublime Text settings
+ln -s ~/.dotfiles/sublime/User/ ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+
+###############################################################################
+# Transmission                                                                #
+###############################################################################
+
+# Auto import
+defaults write org.m0k.transmission AutoImport -bool true
+defaults write org.m0k.transmission AutoImportDirectory -string "~/Downloads"
+defaults write org.m0k.transmission AutoStartDownload -bool true
+
+# Download folder
+defaults write org.m0k.transmission DownloadFolder -string "~/Downloads/zmovies"
+
+# Don’t prompt for confirmation before downloading
+defaults write org.m0k.transmission DownloadAsk -bool false
+defaults write org.m0k.transmission MagnetOpenAsk -bool false
+
+# Trash original torrent files
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+
+# Hide the donate message and legal disclaimer
+defaults write org.m0k.transmission WarningDonate -bool false
+defaults write org.m0k.transmission WarningLegal -bool false
+defaults write org.m0k.transmission DonateAskDate -date "2012-07-27 05:36:58 +0000"
+
+# IP block list.
+# Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
+defaults write org.m0k.transmission BlocklistNew -bool true
+defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
+
+# Randomize port on launch
+defaults write org.m0k.transmission RandomPort -bool true
+
+defaults write org.m0k.transmission PeersTorrent -int 80
+defaults write org.m0k.transmission PeersTotal -int 250
+defaults write org.m0k.transmission QueueDownloadNumber -int 6
+defaults write org.m0k.transmission RatioCheck -bool false
+defaults write org.m0k.transmission RatioLimit -float 2
+defaults write org.m0k.transmission RenamePartialFiles -bool true
+defaults write org.m0k.transmission "NSWindow Frame TransmissionWindow" -string "67 118 515 461 0 0 1680 1028 "
+
+###############################################################################
+# Twitterrific                                                                #
+###############################################################################
+
+defaults write com.iconfactory.mac.Twitterrific "NSWindow Frame manolosavi" -string "67 457 430 455 0 0 1680 1028 "
+
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
+
+for app in "Dock" \
+	"Finder" \
+	"Mail" \
+	"Safari" \
+	"SystemUIServer" \
+	"Transmission" \
+	"Twitterrific"; do
+	killall "${app}" &> /dev/null
+done
+
+echo "Some of these changes require a logout/restart to take effect."

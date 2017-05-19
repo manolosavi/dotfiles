@@ -1,0 +1,14 @@
+{
+	"color_scheme": "Packages/Colorsublime - Themes/Xcode_default.tmTheme",
+	"detect_indentation": false,
+	"font_face": "Operator Mono Book",
+	"font_size": 11,
+	"ignored_packages":
+	[
+		"Package Control",
+		"Vintage"
+	],
+	"soda_classic_tabs": true,
+	"theme": "Soda Light 3.sublime-theme",
+	"word_wrap": true
+}
