@@ -309,8 +309,8 @@ chflags nohidden ~/Library
 ###############################################################################
 
 # Set the size of Dock icons and on hover
-defaults write com.apple.dock tilesize -float 25
-defaults write com.apple.dock largesize -int 27
+defaults write com.apple.dock tilesize -float 22
+defaults write com.apple.dock largesize -int 24
 defaults write com.apple.dock magnification -bool true
 
 defaults write com.apple.dock no-glass -bool false
